@@ -28,8 +28,10 @@ watchMe e = case e of
   
 main = do
   inotify <- initINotify
-  wd <- addWatch inotify [Create, Move, Delete, Modify] "/tmp/sb" watchMe
-  putStrLn "-- watch /home/ja/tmp/sb "
+  wd <- addWatch inotify [Create, Move, Delete, Modify] watchPath watchMe
+  putStrLn "-- watch " ++ watchPath
   getLine
   removeWatch wd
   putStrLn "Bye ..."
+  where
+    watchPath = "/tmp/sb"
